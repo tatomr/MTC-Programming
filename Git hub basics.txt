@@ -1,0 +1,288 @@
+Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\Windows\System32>cd desktop
+The system cannot find the path specified.
+
+C:\Windows\System32>cd.. desktop
+The system cannot find the path specified.
+
+C:\Windows\System32>cd..
+
+C:\Windows>cd..
+
+C:\>cd users
+
+C:\Users>cd cyberadmin
+
+C:\Users\Cyberadmin>cd desktop
+
+C:\Users\Cyberadmin\Desktop>cd MTC-Programming
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>github clone https://github.com/tato
+mr/MTC-Programming.git
+'github' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>github clone <https://github.com/tat
+omr/MTC-Programming.git>
+The syntax of the command is incorrect.
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>github clone https://github.com/tato
+mr/MTC-Programming.git
+'github' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git clone https://github.com/tatomr/
+MTC-Programming.git
+Cloning into 'MTC-Programming'...
+remote: Counting objects: 8, done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 8 (delta 0), reused 5 (delta 0), pack-reused 0
+Unpacking objects: 100% (8/8), done.
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>cd..
+
+C:\Users\Cyberadmin\Desktop>git clone https://github.com/tatomr/MTC-Programming.
+git
+Cloning into 'MTC-Programming'...
+remote: Counting objects: 8, done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 8 (delta 0), reused 5 (delta 0), pack-reused 0
+Unpacking objects: 100% (8/8), done.
+
+C:\Users\Cyberadmin\Desktop>git status
+fatal: Not a git repository (or any of the parent directories): .git
+
+C:\Users\Cyberadmin\Desktop>cd MTC-Programming
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        Definitions12.docx
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git  pull
+Already up to date.
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git push
+Everything up-to-date
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        Definitions12.docx
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git add
+Nothing specified, nothing added.
+Maybe you wanted to say 'git add .'?
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git add Definitions12
+fatal: pathspec 'Definitions12' did not match any files
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git add Definitions12.docx
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   Definitions12.docx
+
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git branch
+* master
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   Definitions12.docx
+
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git add -A
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git commit -m
+error: switch `m' requires a value
+usage: git commit [<options>] [--] <pathspec>...
+
+    -q, --quiet           suppress summary after successful commit
+    -v, --verbose         show diff in commit message template
+
+Commit message options
+    -F, --file <file>     read message from file
+    --author <author>     override author for commit
+    --date <date>         override date for commit
+    -m, --message <message>
+                          commit message
+    -c, --reedit-message <commit>
+                          reuse and edit message from specified commit
+    -C, --reuse-message <commit>
+                          reuse message from specified commit
+    --fixup <commit>      use autosquash formatted message to fixup specified co
+mmit
+    --squash <commit>     use autosquash formatted message to squash specified c
+ommit
+    --reset-author        the commit is authored by me now (used with -C/-c/--am
+end)
+    -s, --signoff         add Signed-off-by:
+    -t, --template <file>
+                          use specified template file
+    -e, --edit            force edit of commit
+    --cleanup <default>   how to strip spaces and #comments from message
+    --status              include status in commit message template
+    -S, --gpg-sign[=<key-id>]
+                          GPG sign commit
+
+Commit contents options
+    -a, --all             commit all changed files
+    -i, --include         add specified files to index for commit
+    --interactive         interactively add files
+    -p, --patch           interactively add changes
+    -o, --only            commit only specified files
+    -n, --no-verify       bypass pre-commit and commit-msg hooks
+    --dry-run             show what would be committed
+    --short               show status concisely
+    --branch              show branch information
+    --porcelain           machine-readable output
+    --long                show status in long format (default)
+    -z, --null            terminate entries with NUL
+    --amend               amend previous commit
+    --no-post-rewrite     bypass post-rewrite hook
+    -u, --untracked-files[=<mode>]
+                          show untracked files, optional modes: all, normal, no.
+ (Default: all)
+
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git commit -m " adding file"
+[master 1e200cb]  adding file
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 Definitions12.docx
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git push
+Counting objects: 2, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 233 bytes | 233.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/tatomr/MTC-Programming.git
+   4d270ca..1e200cb  master -> master
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git branch Second-Branch
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git branch
+  Second-Branch
+* master
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git checkout Second-Branch
+Switched to branch 'Second-Branch'
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git branch
+* Second-Branch
+  master
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git status
+On branch Second-Branch
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        JobSearchScript - Copy.sql
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git add -A
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git commit -m "adding jobsearch copy
+"
+[Second-Branch 9958e1e] adding jobsearch copy
+ 1 file changed, 155 insertions(+)
+ create mode 100644 JobSearchScript - Copy.sql
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git status
+On branch Second-Branch
+nothing to commit, working tree clean
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git push
+fatal: The current branch Second-Branch has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin Second-Branch
+
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git status
+On branch Second-Branch
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   JobSearchScript - Copy.sql
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git add -A
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git commit - m "adding copy of jobse
+arch for test"
+error: pathspec '-' did not match any file(s) known to git.
+error: pathspec 'm' did not match any file(s) known to git.
+error: pathspec 'adding copy of jobsearch for test' did not match any file(s) kn
+own to git.
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git commit -a
+Aborting commit due to empty commit message.
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git push
+fatal: The current branch Second-Branch has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin Second-Branch
+
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git push --set-upstream origin Secon
+d-Branch
+Counting objects: 2, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 240 bytes | 240.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/tatomr/MTC-Programming.git
+   4d270ca..9958e1e  Second-Branch -> Second-Branch
+Branch 'Second-Branch' set up to track remote branch 'Second-Branch' from 'origi
+n'.
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>git status
+On branch Second-Branch
+Your branch is up to date with 'origin/Second-Branch'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   JobSearchScript - Copy.sql
+
+
+C:\Users\Cyberadmin\Desktop\MTC-Programming>

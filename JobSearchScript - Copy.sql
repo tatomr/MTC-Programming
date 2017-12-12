@@ -10,7 +10,7 @@ GO
 
 USE JobSearch;  
 
-exec sp_changedbowner 'sa' 
+exec sp_changedbowner 'sa' a
 
 CREATE TABLE Activities
 (
