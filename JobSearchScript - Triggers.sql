@@ -20,7 +20,7 @@ CREATE TABLE BusinessTypes
 	PRIMARY KEY (BusinessType),
 	CONSTRAINT  ModifiedDate CHECK (ModifiedDate <=  getdate())
 ); 
-GO
+
 PRINT 'BusinessTypes Table Added'
 
 
@@ -43,9 +43,85 @@ Agency BIT DEFAULT (0),
 PRIMARY KEY (CompanyID),
 CONSTRAINT  fk_Companies_BusinessTypes FOREIGN KEY (BusinessType) REFERENCES BusinessTypes(BusinessType)
 );
-GO
 
 PRINT 'Companies Table Added'
+
+-- Trigger Catches New References "Records" To Primary Key 
+
+GO
+Create Trigger BusinessTypeCheck
+On Companies
+After Insert, Update
+As
+IF EXISTS
+(
+	SELECT *
+	FROM inserted I
+	WHERE NOT EXISTS
+	(
+		SELECT *
+		FROM BusinessTypes BT
+		WHERE BT.BusinessType = I.BusinessType
+	)
+)
+BEGIN
+	RAISERROR ('The Business Type entered does not exist. Please enter a valid Business Type.', 16, 1);
+	Rollback Transaction
+END;
+
+--Trigger Catches When Primary Key Are Deleted  
+
+GO
+CREATE TRIGGER TRG_Business_CompaniesDelete
+ON BusinessTypes
+AFTER DELETE
+AS
+BEGIN
+
+IF EXISTS(SELECT * 
+    FROM deleted i 
+    WHERE i.BusinessType IN (select distinct BusinessType FROM Companies))
+    BEGIN
+        RAISERROR('Specified BusinessType referenced by Activity records. Record not deleted.',16,1)
+        ROLLBACK TRANSACTION 
+    END
+END
+
+GO
+CREATE TRIGGER TRG_Company_ContactsDelete
+ON Companies
+AFTER DELETE
+AS
+BEGIN
+
+IF EXISTS(SELECT * 
+	FROM deleted i 
+	WHERE i.CompanyID IN (select distinct CompanyID FROM Contacts ))
+	BEGIN
+		RAISERROR('Specified CompanyID referenced by Activity records. Record not deleted.',16,1)
+		ROLLBACK TRANSACTION 
+	END
+END
+
+GO
+
+CREATE TRIGGER TRG_Company_LeadsDelete
+ON Companies
+AFTER DELETE
+AS
+BEGIN
+
+IF EXISTS(SELECT * 
+    FROM deleted i 
+    WHERE i.CompanyID IN (select distinct CompanyID FROM Leads))
+    BEGIN
+        RAISERROR('Specified CompanyID referenced by Activity records. Record not deleted.',16,1)
+        ROLLBACK TRANSACTION 
+    END
+END
+
+
+GO
 
 CREATE TABLE Sources
 (
@@ -81,6 +157,28 @@ CREATE TABLE Contacts
 GO
 	PRINT 'Contact Table Added'
 
+
+
+--Trigger Catches When Primary Key Are Deleted  
+
+GO
+	CREATE TRIGGER TRG_Contacts_LeadsDelete
+ON Contacts
+AFTER DELETE
+AS
+BEGIN
+
+IF EXISTS(SELECT * 
+	FROM deleted i 
+	WHERE i.ContactID IN (select distinct ContactID FROM Leads))
+	BEGIN
+		RAISERROR('Specified ContactID referenced by Activity records. Record not deleted.',16,1)
+		ROLLBACK TRANSACTION 
+	END
+END
+GO
+
+GO
 	CREATE TABLE Leads
 (
 	LeadID INT NOT NULL IDENTITY (1,1),
@@ -102,6 +200,41 @@ GO
 	CONSTRAINT  fk_Lead_Sources FOREIGN KEY (SourceID) REFERENCES Sources(SourceID),
 	CONSTRAINT  Selected CHECK (Selected IN ('1','0')),
 );
+
+
+--Trigger Catches When Primary Key Are Deleted  
+GO
+CREATE TRIGGER TRG_Leads_ActivityDelete
+ON Leads
+AFTER DELETE
+AS
+BEGIN
+
+IF EXISTS(SELECT * 
+    FROM deleted i 
+    WHERE i.LeadID IN (select distinct LeadID FROM Activities))
+    BEGIN
+        RAISERROR('Specified LeadID referenced by Activity records. Record not deleted.',16,1)
+        ROLLBACK TRANSACTION 
+    END
+END
+
+GO
+
+CREATE TRIGGER TRG_Leads_SourcesDelete
+ON Leads
+AFTER DELETE
+AS
+BEGIN
+
+IF EXISTS(SELECT * 
+    FROM deleted i 
+    WHERE i.SourceID IN (select distinct SourceID FROM Sources))
+    BEGIN
+        RAISERROR('Specified LeadID referenced by Activity records. Record not deleted.',16,1)
+        ROLLBACK TRANSACTION 
+    END
+END
 GO
 
 PRINT 'Leads Table Added'
@@ -124,7 +257,7 @@ CONSTRAINT  fk_Activities_Leads FOREIGN KEY (LeadID) REFERENCES Leads (LeadID)
 PRINT 'Activites Table Added'
 
 	GO
-	Create Trigger TrgActivityModified ON Activities  AFTER INSERT, UPDATE 
+	CREATE TRIGGER TrgActivityModified ON Activities  AFTER INSERT, UPDATE 
 	AS
 	BEGIN
 	UPDATE		a
@@ -132,7 +265,7 @@ PRINT 'Activites Table Added'
 	FROM		Activities a
 	END
 	
-	PRINT 'Trigger ActivityModified Created';
+	PRINT 'Trigger ActivityModified CREATEd';
 
 
 	
@@ -228,10 +361,10 @@ VALUES ('University of Florida', null, null,'Univeristy Ave','Fl', 32601, null, 
 
 INSERT INTO Lead (JobTitle, [Description], Location, Active, DocAttatchments, Selected)
 
-VALUES ('SENIOR DATA BASE ANALYST', 'Database creation, deployment, and configuration, database backup and restore', 'Saint Augustine, Florida', 1, null, 1),
-       (' Data Analysis/Database Development', 'Analyze & document business & data requirements', 'Tampa, Florida',1,null,1),
-	   (' SQL Developer', 'Collaborating with a team of  Engineers on back-end solutions', 'Boca Raton Florida', 1, null,1),
-	   (' Campus Solution Sysmtem Analyst', 'Provide ongoing support and improvement of the university student', 'Daytona Beach Campus',1,null,1)
+VALUES ('Jr. DATA BASE ANALYST', 'Database creation, deployment, and configuration, database backup and restore', 'Saint Augustine, Florida', 1, null, 1),
+       ('SENIOR DATA BASE ANALYST', 'Senior Data Base Analyst (SQL) will be responsible for the design, implementation and ongoing maintenance of all database ', 'Tallahasse, Florida',1,null,1),
+	   (' SYSTEMS ANALYST I', 'Analysis, design, development, and implementation of business solutions', 1, null,1),
+	   (' APPLICATION SYSTEMS PROGRAMMER II', 'Performing new development and maintaining our current systems', 'Tallahassee',1,null,1)
 
 INSERT INTO Sources (SourceName, SourceType, SourceLink, [Description])
 
@@ -240,16 +373,16 @@ VALUES  ('My Florida','Online','https://jobs.myflorida.com/',null)
 
 INSERT INTO Contacts (CourtesyTitle, ContactFirstName, ContactLastName, Activity)
 	   
-VALUES   ('Mr', 'Hegg', 'Flss',1),
-         ('Ms','Glede', 'Stevena',1),
-	     ('Mr', 'Huckster', 'Charlie',1),
-		 ('Ms', 'Blyden', 'Clareta',1),
-		 ('Ms', 'Ozanne', 'Andreana',1)
+VALUES   ('Mr', 'Bill', 'Ginger',1),
+         ('Ms','Hope', 'Faith',1),
+	     ('Mr', 'Charles', 'Limberg',1),
+		 ('Ms', 'Betty', 'Davis',1),
+		 ('Ms', 'Kim', 'Flower',1)
 	   
 
 --TRIGGER
 go
- Create trigger trgRecordUpdate
+ CREATE TRIGGER trgRecordUpdate
  ON Leads
  AFTER INSERT 
  AS
@@ -259,8 +392,8 @@ go
  END
  GO
  
- create trigger trgActivityUpdate
-on Activities
+ CREATE TRIGGER trgActivityUpdate
+ON Activities
 after update
 as
 begin
@@ -269,8 +402,8 @@ set ActivityDate= (getdate())
 	end
 	go
 
-create trigger trgActivityDateUpdate
- on Activities
+CREATE TRIGGER trgActivityDateUpdate
+ ON Activities
  after update
  as 
  begin
@@ -278,7 +411,7 @@ create trigger trgActivityDateUpdate
  set ActivityDate = getdate()
  from Activities 
  inner join inserted i
- on i.ActivityID= Activities.ActivityID
+ ON i.ActivityID= Activities.ActivityID
  end
  GO
 
