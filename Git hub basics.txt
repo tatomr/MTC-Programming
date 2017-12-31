@@ -1,12 +1,6 @@
 Microsoft Windows [Version 6.1.7601]
 Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
 
-C:\Windows\System32>cd desktop
-The system cannot find the path specified.
-
-C:\Windows\System32>cd.. desktop
-The system cannot find the path specified.
-
 C:\Windows\System32>cd..
 
 C:\Windows>cd..
