@@ -13,20 +13,6 @@ C:\Users\Cyberadmin>cd desktop
 
 C:\Users\Cyberadmin\Desktop>cd MTC-Programming
 
-C:\Users\Cyberadmin\Desktop\MTC-Programming>github clone https://github.com/tato
-mr/MTC-Programming.git
-'github' is not recognized as an internal or external command,
-operable program or batch file.
-
-C:\Users\Cyberadmin\Desktop\MTC-Programming>github clone <https://github.com/tat
-omr/MTC-Programming.git>
-The syntax of the command is incorrect.
-
-C:\Users\Cyberadmin\Desktop\MTC-Programming>github clone https://github.com/tato
-mr/MTC-Programming.git
-'github' is not recognized as an internal or external command,
-operable program or batch file.
-
 C:\Users\Cyberadmin\Desktop\MTC-Programming>git clone https://github.com/tatomr/
 MTC-Programming.git
 Cloning into 'MTC-Programming'...
