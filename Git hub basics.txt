@@ -11,20 +11,8 @@ C:\Users>cd cyberadmin
 
 C:\Users\Cyberadmin>cd desktop
 
-C:\Users\Cyberadmin\Desktop>cd MTC-Programming
-
-C:\Users\Cyberadmin\Desktop\MTC-Programming>git clone https://github.com/tatomr/
+C:\Users\Cyberadmin\Desktop>git clone https://github.com/tatomr/
 MTC-Programming.git
-Cloning into 'MTC-Programming'...
-remote: Counting objects: 8, done.
-remote: Compressing objects: 100% (6/6), done.
-remote: Total 8 (delta 0), reused 5 (delta 0), pack-reused 0
-Unpacking objects: 100% (8/8), done.
-
-C:\Users\Cyberadmin\Desktop\MTC-Programming>cd..
-
-C:\Users\Cyberadmin\Desktop>git clone https://github.com/tatomr/MTC-Programming.
-git
 Cloning into 'MTC-Programming'...
 remote: Counting objects: 8, done.
 remote: Compressing objects: 100% (6/6), done.
