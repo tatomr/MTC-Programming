@@ -10,6 +10,16 @@ END
 CREATE DATABASE Library;
 GO
 
+CREATE LOGIN rtatom WITH PASSWORD = '&123'
+GO
+CREATE USER rtatom FOR LOGIN rtatom
+GO
+ALTER ROLE db_datareader ADD MEMBER rtatom
+GO
+ALTER ROLE db_datawriter ADD MEMBER rtatom
+GO
+
+
 USE Library;  
 		
 CREATE TABLE Customers
@@ -72,7 +82,7 @@ CREATE TABLE Product
 (
 	Product_ID INT NOT NULL IDENTITY (1,1),
 	Topic_ID INT NOT NULL,
-	Asset_Name varchar NOT NULL,
+	Asset_Name varchar (250)NOT NULL,
 	Genera varchar (30) NOT NULL,
 	Author_ID int NOT NULL,
 	ISBN varchar (35),
@@ -281,6 +291,7 @@ BEGIN
 
 END
 GO
+
 ALTER TABLE Product
 ADD ModifiedDate datetime DEFAULT GETDATE(), 
 ModifiedBy VARCHAR(50) DEFAULT ORIGINAL_LOGIN()
@@ -414,16 +425,17 @@ INSERT INTO Vendors (Vendor_Name, Phone, Contact_Person, address_1, address_2, C
 
 --Product
 
+INSERT INTO Product ([Topic_ID],[Asset_Name],[Genera],[Author_ID],[ISBN],[Asset_Cost]) VALUES (1, 'Mid Summers Night Dream', 'Comedy', 1, 123, 50)
 
 --Library_Inventory
 
-INSERT INTO Library_Inventory ( [Product_ID], [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], [Notes]) values ( 1, 1, 'false', '8/3/2016', '6/25/2017', 'Shelf','Bluschke', '6/28/2017', 'Good', null);
-INSERT INTO Library_Inventory ( [Product_ID], [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], [Notes]) values ( 2, 2, 'true', '1/29/2015', '8/9/2015', 'Shelf', 'Bluschke', '8/12/2015', 'Bad', null);
-INSERT INTO Library_Inventory ( [Product_ID], [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], [Notes]) values ( 3, 3, 'true', '4/30/2015', '8/30/2017', 'Out', 'Bluschke', '9/02/2017', 'Replace', null);
-INSERT INTO Library_Inventory ( [Product_ID], [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], [Notes]) values ( 4, 4, 'true', '10/16/2016', '12/4/2014', 'Self','Burkess', '12/7/2014', 'Good', null);
-INSERT INTO Library_Inventory ( [Product_ID], [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], [Notes]) values ( 5, 5, 'true', '1/10/2016', '2/1/2016', 'Processing','Burkess', '2/4/2016', 'Bad', null);
-INSERT INTO Library_Inventory ( [Product_ID], [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], [Notes]) values ( 6, 6, 'true', '5/22/2016', '1/3/2017', 'Processing', 'Burkess', '1/6/2017', 'Replace', null);
-INSERT INTO Library_Inventory ( [Product_ID], [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], [Notes]) values ( 7, 7, 'false', '5/4/2015', '10/15/2016', 'Out', 'Bluschke', '10/18/2016', 'Good', null);
+INSERT INTO Library_Inventory ( Product_ID, [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], notes) values ( 1, 3, 'false', '8/3/2016', '6/25/2017', 'Shelf','Bluschke', '6/28/2017', 'Good','GREAT BOOK');
+INSERT INTO Library_Inventory ( Product_ID, [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], notes) values ( 2, 2, 'true', '1/29/2015', '8/9/2015', 'Shelf', 'Bluschke', '8/12/2015', 'Bad', 'Deep philosohical boook');
+INSERT INTO Library_Inventory ( Product_ID, [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], notes) values ( 3, 3, 'true', '4/30/2015', '8/30/2017', 'Out', 'Bluschke', '9/02/2017', 'Replace', 'Amazing sql book');
+INSERT INTO Library_Inventory ( Product_ID, [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], notes) values ( 4, 4, 'true', '10/16/2016', '12/4/2014', 'Self','Burkess', '12/7/2014', 'Good', 'Five Stars' );
+INSERT INTO Library_Inventory ( Product_ID, [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], notes) values ( 5, 5, 'true', '1/10/2016', '2/1/2016', 'Processing','Burkess', '2/4/2016', 'Bad', 'Order extra copies');
+INSERT INTO Library_Inventory ( Product_ID, [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], notes) values ( 6, 6, 'true', '5/22/2016', '1/3/2017', 'Processing', 'Burkess', '1/6/2017', 'Replace', 'Best Seller');
+INSERT INTO Library_Inventory ( Product_ID, [CardNumber_ID], [Item_Availablity], [Checked_In], [Checked_Out], [location], [Processed_ByEmployee], [Processed_Date], [Condition], notes) values ( 7, 7, 'false', '5/4/2015', '10/15/2016', 'Out', 'Bluschke', '10/18/2016', 'Good', 'Next generation of future reading');
 
 
 -- Product_Topics Table
@@ -440,7 +452,6 @@ INSERT INTO dbo.Product_Topics (Product_Description) VALUES ('Recorded Lectures'
 
 
 
-select * from [dbo].[ID_Cards]
 
 
 
