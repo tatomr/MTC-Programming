@@ -1,6 +1,8 @@
 Microsoft Windows [Version 6.1.7601]
 Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
 
+-- Simple Guide for Git Hub http://rogerdudler.github.io/git-guide/
+
 C:\Windows\System32>cd..
 
 C:\Windows>cd..
