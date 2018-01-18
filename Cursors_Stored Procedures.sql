@@ -3,10 +3,6 @@
 
 USE AdventureWorks2012
 
-
-SELECT *
-FROM Sales.SalesOrderHeader
-
 --PART 1: a cursor that will cycle through the first 1000 records and assign a random status of 1 through 3
 
 DECLARE StatusGenerator CURSOR FOR 
@@ -47,12 +43,8 @@ UPDATE Sales.SalesOrderHeader
 SET [Status] = ABS(CHECKSUM(NEWID() )% 3) + 1
 WHERE [Status] = 5
 
--- Reset all status numbers back to 5 
+--Proof-- SELECT * FROM Sales.SalesOrderHeader
 
-UPDATE sales.salesorderheader
-SET [status] = 5
-USE [AdventureWorks2012]
-GO
 
 
 --PART 2: Write two functions to determine the quantity on hand for a specific product.
@@ -61,6 +53,9 @@ GO
 
  -- USES THE PRODUCT ID
  --proof -- SELECT dbo.fn_ProductID(3)
+
+ USE AdventureWorks2012
+ GO
 
 CREATE FUNCTION FN_ProductID
 (
@@ -84,6 +79,9 @@ GO
  -- USES THE PRODUCT NUMBER
 --proof-- Select dbo.FN_ProductNumber ('BE-2349')
 
+USE AdventureWorks2012 
+GO
+
 CREATE FUNCTION FN_ProductNumber
 
 (
@@ -104,4 +102,32 @@ BEGIN
 END
 GO
   
- 
+-- PART 3: examine all records in the table and set orders to status 5 (shipped) where conditions are met
+USE AdventureWorks2012
+GO
+CREATE PROCEDURE sp_OrdersShipped
+AS
+BEGIN
+		
+  WITH Shipped AS
+  (SELECT soh.*
+   FROM Sales.SalesOrderHeader soh 
+	INNER JOIN Sales.SalesOrderDetail sod 
+	ON soh.SalesOrderID = sod.SalesOrderID 
+	INNER JOIN Production.ProductInventory i 
+	ON sod.ProductID = i.ProductID
+	WHERE [Status] IN (1, 2, 3) OR 
+	soh.BillToAddressID IS NOT NULL OR 
+	soh.ShipToAddressID IS NOT NULL OR 
+	soh.CreditCardID IS NOT NULL OR 
+	soh.CreditCardApprovalCode IS NULL)
+				
+		UPDATE Sales.SalesOrderHeader
+		SET [Status] = 5
+	WHERE SalesOrderID IN (SELECT SalesOrderID FROM shipped)
+
+END
+GO
+
+-- EXEC sp_OrdersShipped
+-- proof --- select * from Sales.SalesOrderHeader
