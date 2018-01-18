@@ -80,7 +80,7 @@ CREATE TABLE Vendors
 
 CREATE TABLE Product 
 (
-	Product_ID INT NOT NULL IDENTITY (1,1),
+	Product_ID INT NOT NULL IDENTITY (1, 1),
 	Topic_ID INT NOT NULL,
 	Asset_Name varchar (250)NOT NULL,
 	Genera varchar (30) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE Product
 
 CREATE TABLE Product_Topics
 (
-	Topic_ID INT NOT NULL IDENTITY (1,1),
+	Topic_ID INT NOT NULL IDENTITY (1, 1),
 	Product_Description varchar (35) NOT NULL,	
 	PRIMARY KEY (Topic_ID) 
 );
@@ -425,7 +425,7 @@ INSERT INTO Vendors (Vendor_Name, Phone, Contact_Person, address_1, address_2, C
 
 --Product
 
-INSERT INTO Product ([Topic_ID],[Asset_Name],[Genera],[Author_ID],[ISBN],[Asset_Cost]) VALUES (1, 'Mid Summers Night Dream', 'Comedy', 1, 123, 50)
+INSERT INTO Product ([Topic_ID], Asset_Name, [Genera],[Author_ID],[ISBN],[Asset_Cost]) VALUES ( 3, 'yes', 'Comedy', 1, 2111846805, 70)
 
 --Library_Inventory
 
@@ -455,7 +455,7 @@ INSERT INTO dbo.Product_Topics (Product_Description) VALUES ('Recorded Lectures'
 
 
 
-
+select * from Product_Topics
 
 
 
