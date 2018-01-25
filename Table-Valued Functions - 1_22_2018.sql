@@ -24,7 +24,7 @@ RETURN
 -- SELECT * FROM [Sales].[SalesOrderHeader]
 -- Proof -- Select * FROM OrderNumber (10)
 
-CREATE FUNCTION OrderNumber 
+ALTER FUNCTION OrderNumber 
 (
 @Orders INT
 )
@@ -35,7 +35,25 @@ RETURN
 	
 	FROM  
 		 [Sales].[SalesOrderHeader]
+	Order By OrderDate Desc
 
 GO
 
+---- SELECT * FROM [Person].[PersonPhone]
 
+alter FUNCTION PhoneNumber 
+(
+@Number nvarchar(25)
+)
+RETURNS TABLE 
+AS
+RETURN
+	SELECT PhoneNumber
+	
+	FROM  
+		[Person].[PersonPhone]
+	
+	WHERE
+		PhoneNumber LIKE '%' + @Number + '%'
+
+Select * From PhoneNumber(697)
